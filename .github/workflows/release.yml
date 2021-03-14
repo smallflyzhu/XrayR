@@ -36,7 +36,6 @@ jobs:
             goos: darwin
           - goarch: 386
             goos: openbsd
-          - 
         include:
           # BEIGIN MacOS ARM64
           - goos: darwin
