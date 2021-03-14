@@ -18,7 +18,7 @@ on:
       - "go.sum"
       - ".github/workflows/*.yml"
   release:
-    types: [published]
+    types: [published, edited]
 
 jobs:
 
