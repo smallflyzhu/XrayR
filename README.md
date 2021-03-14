@@ -59,7 +59,7 @@ A Xray backend framework that can easily support many panels.
 
 ## Licence
 
-[Mozilla Public License Version 2.0](https://github.com/X-rayR/XrayR/blob/master/LICENSE)
+[Mozilla Public License Version 2.0](https://github.com/RManLuo/XrayR/blob/main/LICENSE)
 
 
 ## 编译并使用
