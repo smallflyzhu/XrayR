@@ -1,4 +1,8 @@
 # XRayR
+[![](https://img.shields.io/badge/TgChat-@XrayR讨论-blue.svg)](https://t.me/XrayR_project)
+[![](https://img.shields.io/badge/Channel-@XrayR通知-blue.svg)](https://t.me/XrayR_channel)
+[![](https://img.shields.io/badge/blog-@RManLuo-red.svg)](https://www.rman.top/)
+
 A Xray backend framework that can easily support many panels.
 
 一个基于Xray的后端框架，支持V2ay,Trojan,Shadowsocks协议，极易扩展，支持多面板对接
@@ -59,6 +63,11 @@ A Xray backend framework that can easily support many panels.
 
 [Mozilla Public License Version 2.0](https://github.com/RManLuo/XrayR/blob/main/LICENSE)
 
+## Telgram
+
+[XrayR后端讨论](https://t.me/XrayR_project)
+
+[XrayR通知](https://t.me/XrayR_channel)
 
 ## 编译并使用
 1. go 1.6.0
