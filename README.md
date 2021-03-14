@@ -70,7 +70,7 @@ A Xray backend framework that can easily support many panels.
 [XrayR通知](https://t.me/XrayR_channel)
 
 ## 编译并使用
-1. go 1.6.0
+1. go 1.16.0
 2. 依次运行
 ```bash
 git clone https://github.com/RManLuo/XrayR
