@@ -20,7 +20,7 @@ type NodeInfo struct {
 	NodeType          string // Must be V2ray, Trojan, and Shadowsocks
 	NodeID            int
 	Port              int
-	SpeedLimit        uint64
+	SpeedLimit        uint64 // MBps
 	AlterID           int
 	TransportProtocol string
 	Host              string
@@ -36,7 +36,7 @@ type UserInfo struct {
 	Passwd        string
 	Port          int
 	Method        string
-	SpeedLimit    uint64
+	SpeedLimit    uint64 // MBps
 	Protocol      string
 	ProtocolParam string
 	Obfs          string

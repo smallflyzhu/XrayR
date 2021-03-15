@@ -263,12 +263,13 @@ func (c *APIClient) ParseV2rayNodeResponse(nodeInfoResponse *NodeInfoResponse) (
 			}
 		}
 	}
-
+	speedlimit := (nodeInfoResponse.SpeedLimit * 1000000) / 8
 	// Create GeneralNodeInfo
 	nodeinfo := &api.NodeInfo{
 		NodeType:          c.NodeType,
 		NodeID:            c.NodeID,
 		Port:              port,
+		SpeedLimit:        speedlimit,
 		AlterID:           alterID,
 		TransportProtocol: transportProtocol,
 		EnableTLS:         enableTLS,
@@ -293,12 +294,13 @@ func (c *APIClient) ParseSSNodeResponse(nodeInfoResponse *NodeInfoResponse) (*ap
 	if err != nil {
 		return nil, err
 	}
-
+	speedlimit := (nodeInfoResponse.SpeedLimit * 1000000) / 8
 	// Create GeneralNodeInfo
 	nodeinfo := &api.NodeInfo{
 		NodeType:          c.NodeType,
 		NodeID:            c.NodeID,
 		Port:              port,
+		SpeedLimit:        speedlimit,
 		TransportProtocol: "tcp",
 	}
 
@@ -340,11 +342,13 @@ func (c *APIClient) ParseTrojanNodeResponse(nodeInfoResponse *NodeInfoResponse) 
 	if enableXtls == "true" {
 		TLSType = "xtls"
 	}
+	speedlimit := (nodeInfoResponse.SpeedLimit * 1000000) / 8
 	// Create GeneralNodeInfo
 	nodeinfo := &api.NodeInfo{
 		NodeType:          c.NodeType,
 		NodeID:            c.NodeID,
 		Port:              port,
+		SpeedLimit:        speedlimit,
 		TransportProtocol: "tcp",
 		EnableTLS:         true,
 		TLSType:           TLSType,
@@ -355,15 +359,15 @@ func (c *APIClient) ParseTrojanNodeResponse(nodeInfoResponse *NodeInfoResponse) 
 }
 
 // ParseUserListResponse parse the response for the given nodeinfor format
-func (c *APIClient) ParseUserListResponse(nodeInfoResponse *[]UserResponse) (*[]api.UserInfo, error) {
-	userList := make([]api.UserInfo, len(*nodeInfoResponse))
-	for i, user := range *nodeInfoResponse {
+func (c *APIClient) ParseUserListResponse(userInfoResponse *[]UserResponse) (*[]api.UserInfo, error) {
+	userList := make([]api.UserInfo, len(*userInfoResponse))
+	for i, user := range *userInfoResponse {
 		userList[i] = api.UserInfo{
 			UID:           user.ID,
 			Email:         user.Email,
 			UUID:          user.UUID,
 			Passwd:        user.Passwd,
-			SpeedLimit:    user.SpeedLimit,
+			SpeedLimit:    (user.SpeedLimit * 1000000) / 8,
 			Port:          user.Port,
 			Method:        user.Method,
 			Protocol:      user.Protocol,

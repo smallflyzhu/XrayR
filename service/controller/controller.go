@@ -63,6 +63,11 @@ func (c *Controller) Start() error {
 	}
 	c.nodeInfo = newNodeInfo
 	c.userList = userInfo
+	tag := fmt.Sprintf("%s_%d", c.nodeInfo.NodeType, c.nodeInfo.Port)
+	// Add Limiter
+	if err := c.AddInboundLimiter(tag, newNodeInfo.SpeedLimit, userInfo); err != nil {
+		log.Print(err)
+	}
 	c.nodeInfoMonitorPeriodic = &task.Periodic{
 		Interval: time.Duration(c.config.UpdatePeriodic) * time.Second,
 		Execute:  c.nodeInfoMonitor,
@@ -118,6 +123,10 @@ func (c *Controller) nodeInfoMonitor() (err error) {
 		}
 		nodeInfoChanged = true
 		c.nodeInfo = newNodeInfo
+		// Remove Old limiter
+		if err = c.DeleteInboundLimiter(oldtag); err != nil {
+			log.Print(err)
+		}
 	}
 	// Check Cert
 	if c.nodeInfo.EnableTLS && (c.config.CertConfig.CertMode == "dns" || c.config.CertConfig.CertMode == "http") {
@@ -141,6 +150,11 @@ func (c *Controller) nodeInfoMonitor() (err error) {
 		if err != nil {
 			log.Print(err)
 		}
+		// Add Limiter
+		tag := fmt.Sprintf("%s_%d", c.nodeInfo.NodeType, c.nodeInfo.Port)
+		if err := c.AddInboundLimiter(tag, newNodeInfo.SpeedLimit, newUserInfo); err != nil {
+			log.Print(err)
+		}
 	} else {
 		deleted, added := compareUserList(c.userList, newUserInfo)
 		if len(deleted) > 0 {
@@ -157,6 +171,11 @@ func (c *Controller) nodeInfoMonitor() (err error) {
 		if len(added) > 0 {
 			err = c.addNewUser(&added, c.nodeInfo)
 			if err != nil {
+				log.Print(err)
+			}
+			// Update Limiter
+			tag := fmt.Sprintf("%s_%d", c.nodeInfo.NodeType, c.nodeInfo.Port)
+			if err := c.AddInboundLimiter(tag, newNodeInfo.SpeedLimit, &added); err != nil {
 				log.Print(err)
 			}
 		}
@@ -291,10 +310,13 @@ func (c *Controller) userInfoMonitor() (err error) {
 				Download: down})
 		}
 	}
-	err = c.apiClient.ReportUserTraffic(&userTraffic)
-	if err != nil {
-		log.Print(err)
+	if len(userTraffic) > 0 {
+		err = c.apiClient.ReportUserTraffic(&userTraffic)
+		if err != nil {
+			log.Print(err)
+		}
 	}
+
 	// TODO Report Online info
 	return nil
 }

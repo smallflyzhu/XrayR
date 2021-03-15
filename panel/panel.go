@@ -6,10 +6,10 @@ import (
 
 	"github.com/RManLuo/XrayR/api"
 	"github.com/RManLuo/XrayR/api/sspanel"
+	"github.com/RManLuo/XrayR/app/mydispatcher"
 	_ "github.com/RManLuo/XrayR/main/distro/all"
 	"github.com/RManLuo/XrayR/service"
 	"github.com/RManLuo/XrayR/service/controller"
-	"github.com/xtls/xray-core/app/dispatcher"
 	"github.com/xtls/xray-core/app/proxyman"
 	"github.com/xtls/xray-core/app/stats"
 	"github.com/xtls/xray-core/common/serial"
@@ -38,13 +38,20 @@ func (p *Panel) loadCore(c *LogConfig) *core.Instance {
 		AccessLog: c.AccessPath,
 		ErrorLog:  c.ErrorPath,
 	}
+	policyConfig := &conf.PolicyConfig{}
+	policyConfig.Levels = map[uint32]*conf.Policy{0: &conf.Policy{
+		StatsUserUplink:   true,
+		StatsUserDownlink: true,
+	}}
+	pConfig, _ := policyConfig.Build()
 	config := &core.Config{
 		App: []*serial.TypedMessage{
-			serial.ToTypedMessage(&dispatcher.Config{}),
+			serial.ToTypedMessage(logConfig.Build()),
+			serial.ToTypedMessage(&mydispatcher.Config{}),
 			serial.ToTypedMessage(&stats.Config{}),
 			serial.ToTypedMessage(&proxyman.InboundConfig{}),
 			serial.ToTypedMessage(&proxyman.OutboundConfig{}),
-			serial.ToTypedMessage(logConfig.Build()),
+			serial.ToTypedMessage(pConfig),
 		},
 	}
 	server, err := core.New(config)

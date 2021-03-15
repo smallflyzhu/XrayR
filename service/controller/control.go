@@ -4,10 +4,13 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/RManLuo/XrayR/api"
+	"github.com/RManLuo/XrayR/app/mydispatcher"
 	"github.com/xtls/xray-core/common/protocol"
 	"github.com/xtls/xray-core/core"
 	"github.com/xtls/xray-core/features/inbound"
 	"github.com/xtls/xray-core/features/outbound"
+	"github.com/xtls/xray-core/features/routing"
 	"github.com/xtls/xray-core/features/stats"
 	"github.com/xtls/xray-core/proxy"
 )
@@ -124,4 +127,22 @@ func (c *Controller) getTraffic(email string) (up int64, down int64) {
 	}
 	return up, down
 
+}
+
+func (c *Controller) AddInboundLimiter(tag string, nodeSpeedLimit uint64, userList *[]api.UserInfo) error {
+	dispather := c.server.GetFeature(routing.DispatcherType()).(*mydispatcher.DefaultDispatcher)
+	err := dispather.Limiter.AddInboundLimiter(tag, nodeSpeedLimit, userList)
+	return err
+}
+
+func (c *Controller) UpdateInboundLimiter(tag string, nodeSpeedLimit uint64, updatedUserList *[]api.UserInfo) error {
+	dispather := c.server.GetFeature(routing.DispatcherType()).(*mydispatcher.DefaultDispatcher)
+	err := dispather.Limiter.UpdateInboundLimiter(tag, nodeSpeedLimit, updatedUserList)
+	return err
+}
+
+func (c *Controller) DeleteInboundLimiter(tag string) error {
+	dispather := c.server.GetFeature(routing.DispatcherType()).(*mydispatcher.DefaultDispatcher)
+	err := dispather.Limiter.DeleteInboundLimiter(tag)
+	return err
 }
