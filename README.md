@@ -25,7 +25,7 @@ A Xray backend framework that can easily support many panels.
 
 
 ## TODO
-- [ ] 在线用户统计和限制
+- [x] 在线用户统计和限制
 - [x] 限速实现
 - [ ] 审计规则
 - [ ] 对接ProxyPanel
@@ -41,8 +41,8 @@ A Xray backend framework that can easily support many panels.
 | 服务器信息上报  | √     | √      | √           |
 | 自动申请tls证书 | √     | √      | √           |
 | 自动续签tls证书 | √     | √      | √           |
-| 在线人数统计    | TODO  | TODO   | TODO        |
-| 在线用户限制    | TODO  | TODO   | TODO        |
+| 在线人数统计    | √     | √      | √           |
+| 在线用户限制    | √     | √      | √           |
 | 审计规则        | TODO  | TODO   | TODO        |
 | 节点端口限速    | √     | √      | √           |
 | 按照用户限速    | √     | √      | √           |

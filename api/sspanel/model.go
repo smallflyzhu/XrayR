@@ -22,6 +22,7 @@ type UserResponse struct {
 	Port          int    `json:"port"`
 	Method        string `json:"method"`
 	SpeedLimit    uint64 `json:"node_speedlimit"`
+	DeviceLimit   int    `json:"node_connector"`
 	Protocol      string `json:"protocol"`
 	ProtocolParam string `json:"protocol_param"`
 	Obfs          string `json:"obfs"`

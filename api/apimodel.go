@@ -3,9 +3,9 @@ package api
 // API config
 type Config struct {
 	APIHost  string `mapstructure:"ApiHost"`
-	NodeID   int	`mapstructure:"NodeID"`
-	Key      string	`mapstructure:"ApiKey"`
-	NodeType string	`mapstructure:"NodeType"`
+	NodeID   int    `mapstructure:"NodeID"`
+	Key      string `mapstructure:"ApiKey"`
+	NodeType string `mapstructure:"NodeType"`
 }
 
 // Node status
@@ -20,7 +20,7 @@ type NodeInfo struct {
 	NodeType          string // Must be V2ray, Trojan, and Shadowsocks
 	NodeID            int
 	Port              int
-	SpeedLimit        uint64 // MBps
+	SpeedLimit        uint64 // Bps
 	AlterID           int
 	TransportProtocol string
 	Host              string
@@ -36,7 +36,8 @@ type UserInfo struct {
 	Passwd        string
 	Port          int
 	Method        string
-	SpeedLimit    uint64 // MBps
+	SpeedLimit    uint64 // Bps
+	DeviceLimit   int
 	Protocol      string
 	ProtocolParam string
 	Obfs          string

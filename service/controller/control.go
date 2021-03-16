@@ -146,3 +146,8 @@ func (c *Controller) DeleteInboundLimiter(tag string) error {
 	err := dispather.Limiter.DeleteInboundLimiter(tag)
 	return err
 }
+
+func (c *Controller) GetOnlineDevice(tag string) (*[]api.OnlineUser, error) {
+	dispather := c.server.GetFeature(routing.DispatcherType()).(*mydispatcher.DefaultDispatcher)
+	return dispather.Limiter.GetOnlineDevice(tag)
+}

@@ -317,6 +317,17 @@ func (c *Controller) userInfoMonitor() (err error) {
 		}
 	}
 
-	// TODO Report Online info
+	// Report Online info
+	tag := fmt.Sprintf("%s_%d", c.nodeInfo.NodeType, c.nodeInfo.Port)
+	onlineDevice, err := c.GetOnlineDevice(tag)
+	if err != nil {
+		log.Print(err)
+		return nil
+	}
+	if len(*onlineDevice) > 0 {
+		if err = c.apiClient.ReportNodeOnlineUsers(onlineDevice); err != nil {
+			log.Print(err)
+		}
+	}
 	return nil
 }

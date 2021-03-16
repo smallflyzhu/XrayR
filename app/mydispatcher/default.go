@@ -154,7 +154,15 @@ func (d *DefaultDispatcher) getLink(ctx context.Context) (*transport.Link, *tran
 	}
 
 	if user != nil && len(user.Email) > 0 {
-		bucket, ok := d.Limiter.GetUserBucket(sessionInbound.Tag, user.Email)
+		// Speed Limit and Device Limit
+		bucket, ok, reject := d.Limiter.GetUserBucket(sessionInbound.Tag, user.Email, sessionInbound.Source.Address.IP().String())
+		if reject {
+			newError("Devices reach the limit: ", user.Email).AtError().WriteToLog()
+			common.Close(outboundLink.Writer)
+			common.Close(inboundLink.Writer)
+			common.Interrupt(outboundLink.Reader)
+			common.Interrupt(inboundLink.Reader)
+		}
 		if ok {
 			inboundLink.Writer = d.Limiter.RateWriter(inboundLink.Writer, bucket)
 			outboundLink.Writer = d.Limiter.RateWriter(outboundLink.Writer, bucket)

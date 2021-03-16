@@ -368,6 +368,7 @@ func (c *APIClient) ParseUserListResponse(userInfoResponse *[]UserResponse) (*[]
 			UUID:          user.UUID,
 			Passwd:        user.Passwd,
 			SpeedLimit:    (user.SpeedLimit * 1000000) / 8,
+			DeviceLimit:   user.DeviceLimit,
 			Port:          user.Port,
 			Method:        user.Method,
 			Protocol:      user.Protocol,
