@@ -1,7 +1,6 @@
 # XRayR
 [![](https://img.shields.io/badge/TgChat-@XrayR讨论-blue.svg)](https://t.me/XrayR_project)
 [![](https://img.shields.io/badge/Channel-@XrayR通知-blue.svg)](https://t.me/XrayR_channel)
-[![](https://img.shields.io/badge/blog-@RManLuo-red.svg)](https://www.rman.top/)
 
 A Xray backend framework that can easily support many panels.
 
