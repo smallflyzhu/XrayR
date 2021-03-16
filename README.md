@@ -44,7 +44,8 @@ A Xray backend framework that can easily support many panels.
 | 在线人数统计    | TODO  | TODO   | TODO        |
 | 在线用户限制    | TODO  | TODO   | TODO        |
 | 审计规则        | TODO  | TODO   | TODO        |
-| 限速            | √     | √      | √           |
+| 节点端口限速    | √     | √      | √           |
+| 按照用户限速    | √     | √      | √           |
 
 ## 支持前端
 
@@ -116,7 +117,10 @@ Nodes:
           ALICLOUD_SECRET_KEY: bbb
 ```
 ## 前端配置
-
+### 限速说明
+1. 节点限速：请在SSpanel的节点限速处填写，单位mbps。
+2. 用户限速：请在SSpanel的用户设置处填写，单位mbps。
+3. 限速值设为0，则为不限速。
 ### V2ray
 
 | 协议      | 支持情况                                             |
