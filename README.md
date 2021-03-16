@@ -82,6 +82,7 @@ A Xray backend framework that can easily support many panels.
 ```bash
 git clone https://github.com/RManLuo/XrayR
 cd XrayR/main
+go mod tidy
 go build -o XrayR -ldflags "-s -w"
 ./XrayR -config config.yml
 ```
