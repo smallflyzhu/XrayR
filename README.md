@@ -132,6 +132,7 @@ Nodes:
 ```
 IP;监听端口;alterId;(tcp或ws);(tls或xtls或不填);path=/xxx|host=xxxx.com|server=xxx.com|outside_port=xxx|enable_vless=(true或false)
 ```
+alterId设为0，则自动启用VMessAEAD。
 #### TCP示例
 ```
 ip;12345;2;tcp;;server=域名
